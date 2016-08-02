@@ -1,10 +1,17 @@
 require 'date'
 require 'http'
-require_relative '../Patient/json_to_patients'
-require_relative 'report'
+require './src/Patient/json_to_patients'
+require './src/Report/report'
 
-# json_result = HTTP.get('http://private-ab2d42-healthefilings.apiary-mock.com/patients').body
-json_result = File.read('../../test/sample.json')
+if !ARGV.empty? && ARGV[0] == 'dev'
+  puts 'Reading JSON stored locally.'
+  json_result = File.read('./test/sample.json')
+else
+  puts 'Getting JSON...'
+  json_result = HTTP.get('http://private-ab2d42-healthefilings.apiary-mock.com/patients')
+  puts 'Got JSON!'
+end
+
 patients = JsonToPatients.new(json_result).patients
 
 ##############
@@ -26,10 +33,10 @@ m_miss      = gender_miss.get_opposite
 
 # Report
 puts Report.new('Colonoscopy')
-    .define_columns('Gender', 'Have colonscopy', 'Missing colonoscopy')
-    .define_row('M', m_have.length, m_miss.length)
-    .define_row('F', f_have.length, f_miss.length)
-    .print_report
+         .define_columns('Gender', 'Have colonscopy', 'Missing colonoscopy')
+         .define_row('M', m_have.length, m_miss.length)
+         .define_row('F', f_have.length, f_miss.length)
+         .print_report
 
 ######
 # BMI
@@ -50,7 +57,7 @@ young_low  = age_low.get_opposite.new_query.is_age('>=', 18).get
 
 # Report
 puts Report.new('BMI')
-    .define_columns('Age', 'Overweight', 'Not overweight')
-    .define_row('18-64', young_high.length, young_low.length)
-    .define_row('65+', old_high.length, old_low.length)
-    .print_report
+         .define_columns('Age', 'Overweight', 'Not overweight')
+         .define_row('18-64', young_high.length, young_low.length)
+         .define_row('65+', old_high.length, old_low.length)
+         .print_report
