@@ -1,3 +1,5 @@
+# Search arrays, Structs, and OpenStructs (or any combination) to find a value
+# find(haystack, "keys", "to", needle)
 class Search
   def initialize
     @found = false
@@ -5,7 +7,7 @@ class Search
 
   def find(obj, *keys)
     if obj.nil? || keys[0].nil?
-      raise 'Must specify a needle and a haystack: find(haystack, "keys", "to", needle)'
+      raise 'Must specify a needle and a haystack'
     end
 
     @val = keys.last

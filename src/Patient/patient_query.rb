@@ -1,5 +1,6 @@
 require_relative 'patients'
 
+# Queries an array of Patient and then creates new Patients object from results
 class PatientQuery
   def initialize(patients)
     @patients = patients
@@ -9,11 +10,11 @@ class PatientQuery
   def with(*args)
     hits = []
 
-    @query.each { |p|
+    @query.each do |p|
       if p.property?(*args)
         hits.push(p)
       end
-    }
+    end
 
     @query = hits
     self
@@ -22,11 +23,11 @@ class PatientQuery
   def age?(operator, target_age)
     hits = []
 
-    @query.each { |p|
+    @query.each do |p|
       if p.age.send(operator, target_age)
         hits.push(p)
       end
-    }
+    end
 
     @query = hits
     self

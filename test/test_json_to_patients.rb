@@ -3,7 +3,7 @@ require_relative '../src/Patient/json_to_patients'
 
 class TestJsonToPatients < Minitest::Test
   def setup
-    # This file.read will fail if you try to run this from inside the /test directory
+    # This file.read will fail if you try to run this from inside /test
     # Try running in the project root instead using the rake
     @json = File.read('./test/patients.json')
     @jtp = JsonToPatients.new(@json)

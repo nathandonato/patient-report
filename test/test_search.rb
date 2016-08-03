@@ -4,7 +4,7 @@ require_relative '../src/util/search.rb'
 
 class TestSearch < Minitest::Test
   def before_setup
-    # This file.read will fail if you try to run this from inside the /test directory
+    # This file.read will fail if you try to run this from inside /test
     # Try running in the project root instead using the rake
     json_result = File.read('./test/search.json')
     @open = JSON.parse(json_result, object_class: OpenStruct)

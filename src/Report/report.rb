@@ -1,3 +1,4 @@
+# Generates a pretty report with a title, header, and rows
 class Report
   def initialize(title = 'Report')
     @report = [title + ':']

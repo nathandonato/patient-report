@@ -1,5 +1,6 @@
 require_relative '../util/search'
 
+# Holds individual patient information for the purpose of query
 Patient = Struct.new(:id, :birthdate, :gender, :procedures, :results) do
   def property?(*args)
     Search.new.find(self, *args)
