@@ -38,3 +38,15 @@ There is also JSON stored locally for development purposes. If you'd like to run
 ```
 ruby sample_reports.rb dev
 ```
+
+## Testing
+
+This project uses [minitest](http://ruby-doc.org/stdlib-2.0.0/libdoc/minitest/rdoc/MiniTest.html)
+
+Tests can be found in the `test` directory. The source code they test is located in the `src` directory.
+
+To run tests using the command line:
+
+TODO...
+
+To run tests using RubyMine, visit the test
