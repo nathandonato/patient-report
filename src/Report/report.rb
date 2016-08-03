@@ -69,14 +69,14 @@ class Report
   def prettify_text(array)
     pretty_text = ''
 
-    array.each_index { |i|
+    array.each_index do |i|
       pretty_text += array[i].to_s
       if array[i] != array.last
         padding_needed = @spacing_counter[i] - array[i].to_s.length
         pretty_text += ' ' * padding_needed
         pretty_text += ' | '
       end
-    }
+    end
     pretty_text
   end
 
@@ -84,12 +84,12 @@ class Report
     if @spacing_counter.empty?
       array.each_index { |i| @spacing_counter[i] = array[i].length }
     else
-      array.each_index { |i|
+      array.each_index do |i|
         length = array[i].to_s.length
         if length > @spacing_counter[i]
           @spacing_counter[i] = length
         end
-      }
+      end
     end
   end
 end
