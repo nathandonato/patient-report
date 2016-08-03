@@ -20,13 +20,13 @@ class TestReport < Minitest::Test
   end
 
   def test_update_spacing
-    @report.update_spacing(['aaaa', 'bb'])
+    @report.update_spacing(%w(aaaa bb))
     assert_equal [4, 2], @report.instance_variable_get('@spacing_counter')
   end
 
   def test_define_columns
     assert_instance_of Report, @report.define_columns('one', 'two')
-    assert_equal ['one', 'two'], @report.instance_variable_get('@columns')
+    assert_equal %w(one two), @report.instance_variable_get('@columns')
   end
 
   def test_table_integrity
@@ -40,7 +40,7 @@ class TestReport < Minitest::Test
     @report.define_columns('one', 'two')
     @report.define_row('foo', 'bar')
     @report.define_row('goo', 'car')
-    assert_equal [['foo','bar'], ['goo', 'car']], @report.instance_variable_get('@rows')
+    assert_equal [%w(foo bar), %w(goo car)], @report.instance_variable_get('@rows')
   end
 
   def test_draw_line

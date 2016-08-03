@@ -8,12 +8,12 @@ class TestPatient < Minitest::Test
     @patient = Patient.new(1, '1991-02-28', 'F', [], [])
   end
 
-  def test_has_property
-    assert_instance_of TrueClass, @patient.has_property('gender', 'F')
+  def test_property
+    assert_instance_of TrueClass, @patient.property?('gender', 'F')
   end
 
   def test_does_not_have_property
-    assert_instance_of FalseClass, @patient.has_property('gender', 'M')
+    assert_instance_of FalseClass, @patient.property?('gender', 'M')
   end
 
   def test_age

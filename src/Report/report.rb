@@ -7,7 +7,7 @@ class Report
   end
 
   def define_columns(*args)
-    if args.length == 0
+    if args.empty?
       raise 'You must define columns'
     end
 
@@ -80,7 +80,7 @@ class Report
   end
 
   def update_spacing(array)
-    if @spacing_counter.length == 0
+    if @spacing_counter.empty?
       array.each_index { |i| @spacing_counter[i] = array[i].length }
     else
       array.each_index { |i|

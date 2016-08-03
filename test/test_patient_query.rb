@@ -8,7 +8,7 @@ class TestPatientQuery < Minitest::Test
     # Try running in the project root instead using the rake
     json_result = File.read('./test/patients.json')
     @ostructs = JSON.parse(json_result, object_class: OpenStruct)
-    @patients = [ Patient.new(1, '1992-02-29', 'F', [], ['r']), Patient.new(2, '1992-02-29', 'M', ['p'], []) ]
+    @patients = [Patient.new(1, '1992-02-29', 'F', [], %w(r)), Patient.new(2, '1992-02-29', 'M', %w(p), [])]
   end
 
   def setup
@@ -32,32 +32,32 @@ class TestPatientQuery < Minitest::Test
     assert_equal([], @query.with('foo', 'bar').instance_variable_get('@query'))
   end
 
-  def test_is_age_return
-    assert_instance_of PatientQuery, @query.is_age('==', 0)
+  def test_age_return
+    assert_instance_of PatientQuery, @query.age?('==', 0)
   end
 
-  def test_is_age_equal
-    assert_equal(@patients, @query.is_age('==', @current_age).instance_variable_get('@query'))
+  def test_age_equal
+    assert_equal(@patients, @query.age?('==', @current_age).instance_variable_get('@query'))
   end
 
-  def test_is_age_less
-    assert_equal(@patients, @query.is_age('<', @current_age + 1).instance_variable_get('@query'))
+  def test_age_less
+    assert_equal(@patients, @query.age?('<', @current_age + 1).instance_variable_get('@query'))
   end
 
-  def test_is_age_greater
-    assert_equal(@patients, @query.is_age('>', @current_age - 1).instance_variable_get('@query'))
+  def test_age_greater
+    assert_equal(@patients, @query.age?('>', @current_age - 1).instance_variable_get('@query'))
   end
 
-  def test_is_age_less_equal
-    assert_equal(@patients, @query.is_age('<=', @current_age).instance_variable_get('@query'))
+  def test_age_less_equal
+    assert_equal(@patients, @query.age?('<=', @current_age).instance_variable_get('@query'))
   end
 
-  def test_is_age_greater_equal
-    assert_equal(@patients, @query.is_age('>=', @current_age).instance_variable_get('@query'))
+  def test_age_greater_equal
+    assert_equal(@patients, @query.age?('>=', @current_age).instance_variable_get('@query'))
   end
 
-  def test_is_age_not
-    assert_equal(@patients, @query.is_age('!=', @current_age - 1).instance_variable_get('@query'))
+  def test_age_not
+    assert_equal(@patients, @query.age?('!=', @current_age - 1).instance_variable_get('@query'))
   end
 
   def test_get_return
@@ -79,24 +79,24 @@ class TestPatientQuery < Minitest::Test
   end
 
   def test_get_nothing
-    assert_equal([], @query.is_age('==', @current_age - 1).get.instance_variable_get('@patients'))
+    assert_equal([], @query.age?('==', @current_age - 1).get.instance_variable_get('@patients'))
   end
 
   def test_get_opposite_nothing
-    assert_equal([], @query.is_age('==', @current_age).get_opposite.instance_variable_get('@patients'))
+    assert_equal([], @query.age?('==', @current_age).get_opposite.instance_variable_get('@patients'))
   end
 
   def test_get
-    assert_equal(@patients, @query.is_age('==', @current_age).get.instance_variable_get('@patients'))
+    assert_equal(@patients, @query.age?('==', @current_age).get.instance_variable_get('@patients'))
   end
 
   def test_get_opposite
-    assert_equal(@patients, @query.is_age('==', @current_age - 1).get_opposite.instance_variable_get('@patients'))
+    assert_equal(@patients, @query.age?('==', @current_age - 1).get_opposite.instance_variable_get('@patients'))
   end
 
   def calculate_age(patient)
     dob = DateTime.parse(patient.birthdate)
     now = Time.now.utc.to_date
-    return now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 end

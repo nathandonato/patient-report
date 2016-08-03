@@ -33,7 +33,7 @@ class TestSearch < Minitest::Test
 
   def test_keys_nil
     assert_raises RuntimeError do
-      @search.find(['foo', 'bar'], nil)
+      @search.find(%w(foo bar), nil)
     end
   end
 
@@ -58,7 +58,7 @@ class TestSearch < Minitest::Test
   end
 
   def test_array_match
-    assert @search.find(['hey'], ['hey'])
+    assert @search.find(%w(hey), %w(hey))
   end
 
   def test_struct_match
@@ -82,7 +82,7 @@ class TestSearch < Minitest::Test
   end
 
   def test_array_no_match
-    refute @search.find(['hey'], ['bye'])
+    refute @search.find(%w(hey), %w(bye))
   end
 
   def test_struct_no_match
@@ -134,7 +134,7 @@ class TestSearch < Minitest::Test
   end
 
   def test_array_in_array_no_match
-    refute @search.find(['b', [1,'2']], ['2'])
+    refute @search.find(['b', [1, '2']], ['2'])
   end
 
   def test_struct_in_array_no_match
@@ -221,7 +221,7 @@ class TestSearch < Minitest::Test
   end
 
   def test_array_in_os_match
-    assert @search.find(@open, 'y', 'b', ['Nee', 'Yee'])
+    assert @search.find(@open, 'y', 'b', %w(Nee Yee))
   end
 
   def test_int_in_os_no_match
@@ -241,7 +241,7 @@ class TestSearch < Minitest::Test
   end
 
   def test_array_in_os_no_match
-    refute @search.find(@open, 'y', 'b', ['Yee', 'Ree'])
+    refute @search.find(@open, 'y', 'b', %w(Yee Ree))
   end
 end
 

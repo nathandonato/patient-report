@@ -10,7 +10,7 @@ class PatientQuery
     hits = []
 
     @query.each { |p|
-      if p.has_property(*args)
+      if p.property?(*args)
         hits.push(p)
       end
     }
@@ -19,7 +19,7 @@ class PatientQuery
     self
   end
 
-  def is_age(operator, target_age)
+  def age?(operator, target_age)
     hits = []
 
     @query.each { |p|
@@ -32,13 +32,11 @@ class PatientQuery
     self
   end
 
-
   def get
     Patients.new(@query)
   end
 
   def get_opposite
-    opposite = @patients - @query
-    Patients.new(opposite)
+    Patients.new(@patients - @query)
   end
 end
