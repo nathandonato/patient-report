@@ -33,7 +33,7 @@ m_miss      = gender_miss.get_opposite
 
 # Report
 puts Report.new('Colonoscopy')
-  .define_columns('Gender', 'Have colonscopy', 'Missing colonoscopy')
+  .define_columns('Gender', 'Have colonoscopy', 'Missing colonoscopy')
   .define_row('M', m_have.length, m_miss.length)
   .define_row('F', f_have.length, f_miss.length)
   .print_report
