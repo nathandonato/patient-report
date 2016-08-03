@@ -45,8 +45,8 @@ This project uses [minitest](http://ruby-doc.org/stdlib-2.0.0/libdoc/minitest/rd
 
 Tests can be found in the `test` directory. The source code they test is located in the `src` directory.
 
-To run tests using the command line:
+To run the unit tests, run this command from the root of `patient_report`:
 
-TODO...
-
-To run tests using RubyMine, visit the test
+```
+rake test
+```

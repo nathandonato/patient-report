@@ -5,7 +5,7 @@ require './src/Report/report'
 
 if !ARGV.empty? && ARGV[0] == 'dev'
   puts 'Reading JSON stored locally.'
-  json_result = File.read('./test/sample.json')
+  json_result = File.read('./sample.json')
 else
   puts 'Getting JSON...'
   json_result = HTTP.get('http://private-ab2d42-healthefilings.apiary-mock.com/patients')

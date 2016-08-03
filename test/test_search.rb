@@ -1,12 +1,13 @@
 require 'minitest/autorun'
 require 'json'
-require '../src/util/search.rb'
+require_relative '../src/util/search.rb'
 
 class TestSearch < Minitest::Test
   def before_setup
-    json_result = File.read('./test.json')
-    o_array = JSON.parse(json_result, object_class: OpenStruct)
-    @open = o_array[2]
+    # This file.read will fail if you try to run this from inside the /test directory
+    # Try running in the project root instead using the rake
+    json_result = File.read('./test/search.json')
+    @open = JSON.parse(json_result, object_class: OpenStruct)
 
     @nested_struct = TStruct.new(4, 'bar', false, true, [2, 'b'], @open)
     @struct = TStruct.new(3, 'foo', false, true, [1, 'a'], @open, @nested_struct)
@@ -199,6 +200,7 @@ class TestSearch < Minitest::Test
   def test_os_in_struct_no_match
     new_ostruct = @open.clone
     new_ostruct.delete_field('x')
+
     refute @search.find(@struct, 'open', new_ostruct)
   end
 
