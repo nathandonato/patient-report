@@ -8,7 +8,7 @@ if !ARGV.empty? && ARGV[0] == 'dev'
   json_result = File.read('./sample.json')
 else
   puts 'Getting JSON...'
-  json_result = HTTP.get('http://private-ab2d42-healthefilings.apiary-mock.com/patients')
+  json_result = HTTP.get('http://private-ab2d42-healthefilings.apiary-mock.com/patients2')
   puts 'Got JSON!'
 end
 

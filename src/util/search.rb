@@ -2,7 +2,7 @@
 # find(haystack, "keys", "to", needle)
 class Search
   def initialize
-    @path_to_item = nil
+    @path = nil
   end
 
   def find(obj, *keys)
@@ -12,13 +12,12 @@ class Search
 
     @val = keys.last
     iterate(obj, *keys - [@val], [])
-    @path_to_item
+    @path
   end
 
   def iterate(obj, *keys, path)
     if obj == @val && keys.empty?
-      @path_to_item = path
-      @found = true
+      @path = path
     elsif obj.is_a? Array
       obj.each { |i|
         new_path = path + [i]
