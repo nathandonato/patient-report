@@ -42,22 +42,22 @@ puts Report.new('Colonoscopy')
 # BMI
 ######
 
-# Queries
-bmi_query = patients.new_query.with('results', 'codes', 'LOINC', '39156-5')
-high_bmi  = bmi_query.get
-low_bmi   = bmi_query.get_opposite
-
-age_high   = high_bmi.new_query.age?('>=', 65)
-old_high   = age_high.get
-young_high = age_high.get_opposite.new_query.age?('>=', 18).get
-
-age_low    = low_bmi.new_query.age?('>=', 65)
-old_low    = age_low.get
-young_low  = age_low.get_opposite.new_query.age?('>=', 18).get
-
-# Report
-puts Report.new('BMI')
-  .define_columns('Age', 'Overweight', 'Not overweight')
-  .define_row('18-64', young_high.length, young_low.length)
-  .define_row('65+', old_high.length, old_low.length)
-  .print_report
+# # Queries
+# bmi_query = patients.new_query.result_value?('LOINC', '39156-5', 'scalar', '>', 25)
+# high_bmi  = bmi_query.get
+# low_bmi   = bmi_query.get_opposite
+#
+# age_high   = high_bmi.new_query.age?('>=', 65)
+# old_high   = age_high.get
+# young_high = age_high.get_opposite.new_query.age?('>=', 18).get
+#
+# age_low    = low_bmi.new_query.age?('>=', 65)
+# old_low    = age_low.get
+# young_low  = age_low.get_opposite.new_query.age?('>=', 18).get
+#
+# # Report
+# puts Report.new('BMI')
+#   .define_columns('Age', 'Overweight', 'Not overweight')
+#   .define_row('18-64', young_high.length, young_low.length)
+#   .define_row('65+', old_high.length, old_low.length)
+#   .print_report

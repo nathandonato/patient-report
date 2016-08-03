@@ -22,7 +22,7 @@ class TestSearch < Minitest::Test
   end
 
   def test_default_found
-    refute @search.instance_variable_get('@found')
+    assert_nil @search.instance_variable_get('@path_to_item')
   end
 
   def test_find_nil
@@ -38,210 +38,210 @@ class TestSearch < Minitest::Test
   end
 
   def test_type_integrity
-    refute @search.find(3, '3')
+    assert_nil @search.find(3, '3')
   end
 
   def test_int_match
-    assert @search.find(3, 3)
+    refute_nil @search.find(3, 3)
   end
 
   def test_string_match
-    assert @search.find('3', '3')
+    refute_nil @search.find('3', '3')
   end
 
   def test_false_match
-    assert @search.find(false, false)
+    refute_nil @search.find(false, false)
   end
 
   def test_true_match
-    assert @search.find(true, true)
+    refute_nil @search.find(true, true)
   end
 
   def test_array_match
-    assert @search.find(%w(hey), %w(hey))
+    refute_nil @search.find(%w(hey), %w(hey))
   end
 
   def test_struct_match
-    assert @search.find(@struct, @struct)
+    refute_nil @search.find(@struct, @struct)
   end
 
   def test_int_no_match
-    refute @search.find(3, 5)
+    assert_nil @search.find(3, 5)
   end
 
   def test_string_no_match
-    refute @search.find('3', 'm')
+    assert_nil @search.find('3', 'm')
   end
 
   def test_false_no_match
-    refute @search.find(false, 0)
+    assert_nil @search.find(false, 0)
   end
 
   def test_true_no_match
-    refute @search.find(true, 1)
+    assert_nil @search.find(true, 1)
   end
 
   def test_array_no_match
-    refute @search.find(%w(hey), %w(bye))
+    assert_nil @search.find(%w(hey), %w(bye))
   end
 
   def test_struct_no_match
-    refute @search.find(@struct, 'x')
+    assert_nil @search.find(@struct, 'x')
   end
 
   def test_int_in_array_match
-    assert @search.find([3], 3)
+    refute_nil @search.find([3], 3)
   end
 
   def test_string_in_array_match
-    assert @search.find(['3'], '3')
+    refute_nil @search.find(['3'], '3')
   end
 
   def test_false_in_array_match
-    assert @search.find([false], false)
+    refute_nil @search.find([false], false)
   end
 
   def test_true_in_array_match
-    assert @search.find([true], true)
+    refute_nil @search.find([true], true)
   end
 
   def test_array_in_array_match
-    assert @search.find(['b', ['2']], ['2'])
+    refute_nil @search.find(['b', ['2']], ['2'])
   end
 
   def test_struct_in_array_match
-    assert @search.find([@struct], @struct)
+    refute_nil @search.find([@struct], @struct)
   end
 
   def test_os_in_array_match
-    assert @search.find([@open], @open)
+    refute_nil @search.find([@open], @open)
   end
 
   def test_int_in_array_no_match
-    refute @search.find([3], 5)
+    assert_nil @search.find([3], 5)
   end
 
   def test_string_in_array_no_match
-    refute @search.find(['3'], 'm')
+    assert_nil @search.find(['3'], 'm')
   end
 
   def test_false_in_array_no_match
-    refute @search.find([false], 'false')
+    assert_nil @search.find([false], 'false')
   end
 
   def test_true_in_array_no_match
-    refute @search.find([true], 1)
+    assert_nil @search.find([true], 1)
   end
 
   def test_array_in_array_no_match
-    refute @search.find(['b', [1, '2']], ['2'])
+    assert_nil @search.find(['b', [1, '2']], ['2'])
   end
 
   def test_struct_in_array_no_match
-    refute @search.find([@open], @struct)
+    assert_nil @search.find([@open], @struct)
   end
 
   def test_os_in_array_no_match
-    refute @search.find([@struct], @open)
+    assert_nil @search.find([@struct], @open)
   end
 
   def test_int_in_struct_match
-    assert @search.find(@struct, 'int', 3)
+    refute_nil @search.find(@struct, 'int', 3)
   end
 
   def test_string_in_struct_match
-    assert @search.find(@struct, 'string', 'foo')
+    refute_nil @search.find(@struct, 'string', 'foo')
   end
 
   def test_false_in_struct_match
-    assert @search.find(@struct, 'f', false)
+    refute_nil @search.find(@struct, 'f', false)
   end
 
   def test_true_in_struct_match
-    assert @search.find(@struct, 't', true)
+    refute_nil @search.find(@struct, 't', true)
   end
 
   def test_struct_in_struct_match
-    assert @search.find(@struct, 'struct', @nested_struct)
+    refute_nil @search.find(@struct, 'struct', @nested_struct)
   end
 
   def test_os_in_struct_match
-    assert @search.find(@struct, 'open', @open)
+    refute_nil @search.find(@struct, 'open', @open)
   end
 
   def test_array_in_struct_match
-    assert @search.find(@struct, 'array', [1, 'a'])
+    refute_nil @search.find(@struct, 'array', [1, 'a'])
   end
 
   def test_int_in_struct_no_match
-    refute @search.find(@struct, 'int', 10)
+    assert_nil @search.find(@struct, 'int', 10)
   end
 
   def test_string_in_struct_no_match
-    refute @search.find(@struct, 'string', 'boo')
+    assert_nil @search.find(@struct, 'string', 'boo')
   end
 
   def test_false_in_struct_no_match
-    refute @search.find(@struct, 'f', 0)
+    assert_nil @search.find(@struct, 'f', 0)
   end
 
   def test_true_in_struct_no_match
-    refute @search.find(@struct, 't', 1)
+    assert_nil @search.find(@struct, 't', 1)
   end
 
   def test_array_in_struct_no_match
-    refute @search.find(@struct, 'array', [2, 'a'])
+    assert_nil @search.find(@struct, 'array', [2, 'a'])
   end
 
   def test_struct_in_struct_no_match
-    refute @search.find(@nested_struct, 'struct', @struct)
+    assert_nil @search.find(@nested_struct, 'struct', @struct)
   end
 
   def test_os_in_struct_no_match
     new_ostruct = @open.clone
     new_ostruct.delete_field('x')
 
-    refute @search.find(@struct, 'open', new_ostruct)
+    assert_nil @search.find(@struct, 'open', new_ostruct)
   end
 
   def test_int_in_os_match
-    assert @search.find(@open, 'x', 'b', 2)
+    refute_nil @search.find(@open, 'x', 'b', 2)
   end
 
   def test_string_in_os_match
-    assert @search.find(@open, 'w', 'b', 'Yee')
+    refute_nil @search.find(@open, 'w', 'b', 'Yee')
   end
 
   def test_true_in_os_match
-    assert @search.find(@open, 'w', 'f', true)
+    refute_nil @search.find(@open, 'w', 'f', true)
   end
 
   def test_false_in_os_match
-    assert @search.find(@open, 'y', 'c', false)
+    refute_nil @search.find(@open, 'y', 'c', false)
   end
 
   def test_array_in_os_match
-    assert @search.find(@open, 'y', 'b', %w(Nee Yee))
+    refute_nil @search.find(@open, 'y', 'b', %w(Nee Yee))
   end
 
   def test_int_in_os_no_match
-    refute @search.find(@open, 'y', 'b', 1)
+    assert_nil @search.find(@open, 'y', 'b', 1)
   end
 
   def test_string_in_os_no_match
-    refute @search.find(@open, 'y', 'b', 'won\'t find')
+    assert_nil @search.find(@open, 'y', 'b', 'won\'t find')
   end
 
   def test_true_in_os_no_match
-    refute @search.find(@open, 'y', true)
+    assert_nil @search.find(@open, 'y', true)
   end
 
   def test_false_in_os_no_match
-    refute @search.find(@open, 'y', false)
+    assert_nil @search.find(@open, 'y', false)
   end
 
   def test_array_in_os_no_match
-    refute @search.find(@open, 'y', 'b', %w(Yee Ree))
+    assert_nil @search.find(@open, 'y', 'b', %w(Yee Ree))
   end
 end
 

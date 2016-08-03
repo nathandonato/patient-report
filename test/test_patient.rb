@@ -9,11 +9,11 @@ class TestPatient < Minitest::Test
   end
 
   def test_property
-    assert_instance_of TrueClass, @patient.property?('gender', 'F')
+    refute_nil @patient.property?('gender', 'F')
   end
 
   def test_does_not_have_property
-    assert_instance_of FalseClass, @patient.property?('gender', 'M')
+    assert_nil @patient.property?('gender', 'M')
   end
 
   def test_age
